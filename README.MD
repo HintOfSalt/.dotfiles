@@ -21,7 +21,7 @@ $ sudo apt install Stow
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```
-$ git clone git@github.com/hintofsalt/.dotfiles.git
+$ git clone git@github.com:hintofsalt/.dotfiles.git
 ```
 
 Then use install.sh to create symlinks
