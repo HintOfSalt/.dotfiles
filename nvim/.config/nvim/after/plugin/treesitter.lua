@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 configs.setup({
-	ensure_installed = { "help", "javascript", "typescript", "c", "lua", "rust", "go", "python" },
+	ensure_installed = { "javascript", "typescript", "c", "lua", "rust", "go", "python" },
 	sync_install = false,
 	auto_install = true,
 	highlight = {
