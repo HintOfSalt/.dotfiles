@@ -20,7 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -----------------
 -- KEYBINDINGS --
@@ -632,27 +632,6 @@ require("lazy").setup({
         }
     },
     { "nvim-treesitter/nvim-treesitter-context", },
-    { "JoosepAlviste/nvim-ts-context-commentstring", },
-    { 
-        "numToStr/Comment.nvim",
-        opts = {
-            pre_hook = function(ctx)
-                local U = require 'Comment.utils'
-
-                local location = nil
-                if ctx.ctype == U.ctype.block then
-                location = require('ts_context_commentstring.utils').get_cursor_location()
-                elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                location = require('ts_context_commentstring.utils').get_visual_start_location()
-                end
-
-                return require('ts_context_commentstring.internal').calculate_commentstring {
-                key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-                location = location,
-                }
-            end,
-        }
-    },
     {
         "windwp/nvim-autopairs",
         opts = {
