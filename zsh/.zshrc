@@ -1,14 +1,21 @@
 export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH=$HOME/.zsh
 
-ZSH_THEME="robbyrussell"
+### ---- history ----
+export HISTFILE=$ZSH/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt INC_APPEND_HISTORY
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+### ---- plugins ----
+source $ZSH/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZSH/plugins/zsh-autosuggestions-master/zsh-autosuggestions.zsh
+fpath=($ZSH/plugins/zsh-completions/src $fpath)
 
-source $ZSH/oh-my-zsh.sh
+### ---- prompt ----
+source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH=$PATH:/usr/local/go/bin
+### ---- dev ----
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin

@@ -96,7 +96,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 vim.o.signcolumn = "yes"
-vim.o.colorcoloumn = "80"
+vim.o.colorcolumn = "80"
 
 vim.o.numberwidth = 4
 vim.o.incsearch = true
@@ -120,8 +120,6 @@ vim.o.undofile = true
 vim.o.fileencoding = "utf-8"
 vim.o.fileformat = "unix"
 vim.o.fileformats = "unix,dos"
-
---vim.o.whichwrap:append({"<", ">", "[", "]", "h", "l"})
 
 -------------
 -- PLUGINS --
@@ -150,18 +148,20 @@ require("lazy").setup({
     },
 
     -- ui
-    { "tpop/vim-sleuth" },
+    { "tpope/vim-sleuth" },
     { "nvim-lua/plenary.nvim", lazy = true, },
     { "nvim-tree/nvim-web-devicons", lazy = true, enabled = vim.g.have_nerd_font },
     {
         "akinsho/bufferline.nvim",
         verion = "*",
         opts = {
-            show_buffer_icons = true,
-            show_buffer_close_icons = false,
-            show_close_icon = false,
-            show_tab_indicators = true,
-            always_show_bufferline = false,
+            options = {
+                show_buffer_icons = true,
+                show_buffer_close_icons = false,
+                show_close_icon = false,
+                show_tab_indicators = true,
+                always_show_bufferline = false,
+            },
         },
     },
     {
@@ -651,7 +651,7 @@ require("lazy").setup({
             },
         },
     },
-    { "windwp/hnvim-ts-autotag", opts = {}, },
+    { "windwp/nvim-ts-autotag", opts = {}, },
 
     -- git
     { 
@@ -671,7 +671,7 @@ require("lazy").setup({
 
     -- debugging
     { 
-        "mfussenggeger/nvim-dap",
+        "mfussenegger/nvim-dap",
         dependencies = {
             { "leoluz/nvim-dap-go", opts = {}, },
             { "theHamsta/nvim-dap-virtual-text", opts = {}, },
