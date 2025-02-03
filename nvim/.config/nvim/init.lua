@@ -476,7 +476,7 @@ require("lazy").setup({
                     --pyright = {},
                     --bashls = {},
                     --jsonls = {},
-                    ts_ls = {},
+                    --ts_ls = {},
                     lua_ls = {
                         settings = {
                             Lua = {
