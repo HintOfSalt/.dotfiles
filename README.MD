@@ -13,7 +13,7 @@ $ sudo apt install git
 ### Stow
 
 ```
-$ sudo apt install Stow
+$ sudo apt install stow
 ```
 
 ## Installation
@@ -30,11 +30,13 @@ Then use install.sh to create symlinks
 $ cd /.dotfiles && sudo chmod +x install.sh && ./install.sh
 ```
 
-Install OMZ plugins
+Install zsh plugins
 
 ```
-$ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+$ git clone git@github.com/zsh-users/zsh-autosuggestions.git $ZSH/zsh-autosuggestions
+$ git clone git@github.com/zdharma-continuum/fast-syntax-highlighting.git $ZSH/fast-syntax-highlighting
+$ git clone git@github.com/zsh-users/zsh-completions.git $ZSH/zsh-completions
+$ git clone --depth=1 git@github.com/romkatv/powerlevel10k.git $ZSH/powerlevel10k
 ```
 
 Install Tmux plugins

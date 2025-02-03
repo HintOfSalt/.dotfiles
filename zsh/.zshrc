@@ -18,12 +18,12 @@ setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
 
 ### ---- plugins ----
-source $ZSH/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $ZSH/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-fpath=($ZSH/plugins/zsh-completions/src $fpath)
+source $ZSH/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
+fpath=($ZSH/zsh-completions/src $fpath)
 
 ### ---- prompt ----
-source $ZSH/themes/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH/powerlevel10k/powerlevel10k.zsh-theme
 
 ### ---- dev ----
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
