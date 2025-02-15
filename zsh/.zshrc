@@ -24,6 +24,7 @@ fpath=($ZSH/zsh-completions/src $fpath)
 
 ### ---- prompt ----
 source $ZSH/powerlevel10k/powerlevel10k.zsh-theme
+export CLICOLOR=YES
 
 ### ---- dev ----
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
