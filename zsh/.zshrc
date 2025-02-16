@@ -18,9 +18,11 @@ setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
 
 ### ---- plugins ----
-source $ZSH/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/local/share/fzf/completion.zsh
+source /opt/local/share/fzf/key-bindings.zsh
 fpath=($ZSH/zsh-completions/src $fpath)
+source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 ### ---- prompt ----
 source $ZSH/powerlevel10k/powerlevel10k.zsh-theme
