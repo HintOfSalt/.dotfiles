@@ -11,3 +11,6 @@ do
     stow $folder
 done
 popd
+
+git submodule init
+git submodule update
