@@ -18,8 +18,7 @@ setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
 
 ### ---- plugins ----
-source /opt/local/share/fzf/completion.zsh
-source /opt/local/share/fzf/key-bindings.zsh
+source <(fzf --zsh)
 fpath=($ZSH/zsh-completions/src $fpath)
 source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
