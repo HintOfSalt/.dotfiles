@@ -473,6 +473,7 @@ require("lazy").setup({
                 local servers = {
                     -- clangd = {},
                     gopls = {},
+                    zls = {},
                     --pyright = {},
                     --bashls = {},
                     --jsonls = {},
