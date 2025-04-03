@@ -56,7 +56,7 @@ vim.keymap.set("n", "<S-h>", ":bprevious<CR>", { desc = "Move to previous buffer
 vim.keymap.set("n", "<leader>q", ":bdelete<CR>", { desc = "Close current buffer" })
 
 -- Clear highlights on search
-vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Clear highlights on serarch" })
+vim.keymap.set("n", "<ESC>", "<CMD>nohlsearch<CR>", { desc = "Clear highlights on search" })
 
 -- Visual --
 -- Stay in indent mode
@@ -139,12 +139,6 @@ require("lazy").setup({
             opts = {
                 style = "night",
             },
-        },
-        {
-            "olivercederborg/poimandres.nvim",
-            lazy = false,
-            priority = 1000,
-            opts = {}
         },
 
         -- ui
@@ -761,14 +755,14 @@ require("lazy").setup({
                     function()
                         require("dapui").open()
                     end,
-                    desc = "DAP step out"
+                    desc = "DAP open"
                 },
                 {
                     "<Leader>W",
                     function()
                         require("dapui").close()
                     end,
-                    desc = "DAP step out"
+                    desc = "DAP close"
                 },
             },
         },
