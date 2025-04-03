@@ -26,6 +26,7 @@ source $ZSH/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 ### ---- prompt ----
 source $ZSH/powerlevel10k/powerlevel10k.zsh-theme
 export CLICOLOR=YES
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 
 ### ---- dev ----
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
