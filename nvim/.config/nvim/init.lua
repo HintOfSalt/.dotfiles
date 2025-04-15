@@ -237,73 +237,44 @@ require("lazy").setup({
 
         -- autocompletion
         {
-            "hrsh7th/nvim-cmp",
-            event = "InsertEnter",
+            'saghen/blink.cmp',
+            event = 'VimEnter',
+            version = '1.*',
             dependencies = {
-                "L3MON4D3/LuaSnip",
                 {
-                    "rafamadriz/friendly-snippets",
-                    config = function() require("luasnip.loaders.from_vscode").lazy_load() end
-                },
-                "hrsh7th/cmp-buffer",
-                "hrsh7th/cmp-path",
-                "hrsh7th/cmp-cmdline",
-                "saadparwaiz1/cmp_luasnip",
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-nvim-lua",
-            },
-            config = function()
-                -- See `:help cmp`
-                local cmp = require 'cmp'
-                local luasnip = require 'luasnip'
-                luasnip.config.setup {}
-
-                cmp.setup {
-                    snippet = {
-                        expand = function(args)
-                            luasnip.lsp_expand(args.body)
-                        end,
-                    },
-                    completion = { completeopt = 'menu,menuone,noinsert' },
-
-                    mapping = cmp.mapping.preset.insert {
-                        ['<CR>'] = cmp.mapping.confirm { select = true },
-                        ['<Tab>'] = cmp.mapping.select_next_item(),
-                        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-                        -- Scroll the documentation window [b]ack / [f]orward
-                        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-                        -- Manually trigger a completion from nvim-cmp.
-                        --  Generally you don't need this, because nvim-cmp will display
-                        --  completions whenever it has completion options available.
-                        ['<C-Space>'] = cmp.mapping.complete {},
-
-                        ['<C-l>'] = cmp.mapping(function()
-                            if luasnip.expand_or_locally_jumpable() then
-                                luasnip.expand_or_jump()
-                            end
-                        end, { 'i', 's' }),
-                        ['<C-h>'] = cmp.mapping(function()
-                            if luasnip.locally_jumpable(-1) then
-                                luasnip.jump(-1)
-                            end
-                        end, { 'i', 's' }),
-                    },
-                    sources = {
+                    'L3MON4D3/LuaSnip',
+                    version = '2.*',
+                    build = 'make install_jsregexp',
+                    dependencies = {
                         {
-                            name = 'lazydev',
-                            -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-                            group_index = 0,
+                            'rafamadriz/friendly-snippets',
+                            config = function()
+                                require('luasnip.loaders.from_vscode').lazy_load()
+                            end,
                         },
-                        { name = 'nvim_lsp' },
-                        { name = 'luasnip' },
-                        { name = "buffer" },
-                        { name = 'path' },
                     },
-                }
-            end,
+                    opts = {},
+                },
+            },
+            --- @module 'blink.cmp'
+            --- @type blink.cmp.Config
+            opts = {
+                keymap = {
+                    preset = 'default',
+                },
+                appearance = {
+                    nerd_font_variant = 'mono',
+                },
+                completion = {
+                    documentation = { auto_show = false, auto_show_delay_ms = 500 },
+                },
+                sources = {
+                    default = { 'lsp', 'path', 'snippets', 'buffer' }
+                },
+                snippets = { preset = 'luasnip' },
+                fuzzy = { implementation = 'lua' },
+                signature = { enabled = true },
+            },
         },
 
         -- lsp
@@ -330,7 +301,10 @@ require("lazy").setup({
                     end
                 },
                 { 'nvim-telescope/telescope-ui-select.nvim' },
-                { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+                {
+                    'nvim-tree/nvim-web-devicons',
+                    enabled = vim.g.have_nerd_font
+                },
             },
             config = function()
                 -- Two important keymaps to use while in Telescope are:
