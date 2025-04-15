@@ -86,6 +86,7 @@ vim.schedule(function()
 end)
 
 vim.o.completeopt = "menu,menuone,popup,fuzzy,noselect"
+vim.o.winborder = "rounded"
 
 vim.o.cursorline = true
 
