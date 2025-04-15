@@ -73,6 +73,10 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Move fouces to the r
 -- Exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Autocomplete --
+-- Activate completion
+vim.keymap.set("i", "<C-space>", function() vim.lsp.completion.get() end)
+
 -------------
 -- OPTIONS --
 -------------
@@ -80,6 +84,8 @@ vim.o.termguicolors = true
 vim.schedule(function()
     vim.o.clipboard = "unnamedplus"
 end)
+
+vim.o.completeopt = "menu,menuone,popup,fuzzy,noselect"
 
 vim.o.cursorline = true
 
@@ -241,48 +247,6 @@ require("lazy").setup({
                     { "<leader>t", group = "[T]oggle" },
                     { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
                 }
-            },
-        },
-
-        -- autocompletion
-        {
-            'saghen/blink.cmp',
-            event = 'VimEnter',
-            version = '1.*',
-            dependencies = {
-                {
-                    'L3MON4D3/LuaSnip',
-                    version = '2.*',
-                    build = 'make install_jsregexp',
-                    dependencies = {
-                        {
-                            'rafamadriz/friendly-snippets',
-                            config = function()
-                                require('luasnip.loaders.from_vscode').lazy_load()
-                            end,
-                        },
-                    },
-                    opts = {},
-                },
-            },
-            --- @module 'blink.cmp'
-            --- @type blink.cmp.Config
-            opts = {
-                keymap = {
-                    preset = 'default',
-                },
-                appearance = {
-                    nerd_font_variant = 'mono',
-                },
-                completion = {
-                    documentation = { auto_show = false, auto_show_delay_ms = 500 },
-                },
-                sources = {
-                    default = { 'lsp', 'path', 'snippets', 'buffer' }
-                },
-                snippets = { preset = 'luasnip' },
-                fuzzy = { implementation = 'lua' },
-                signature = { enabled = true },
             },
         },
 
@@ -623,23 +587,27 @@ vim.lsp.enable('zls')
 ------------------
 -- autocommands --
 ------------------
--- format on save
 vim.api.nvim_create_autocmd("LspAttach", {
-    desc = "Format on save",
+    desc = "Autocomplete and format on save",
+    group = vim.api.nvim_create_augroup("my.lsp", {}),
     callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if not client then return end
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-        if client.supports_method("textDocument/formatting") then
+        if client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        end
+
+        if not client:supports_method("textDocument/willSaveWaitUntil")
+            and client:supports_method("textDocument/formatting") then
             vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("my.lsp", { clear = false }),
                 buffer = args.buf,
                 callback = function()
-                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 })
                 end,
             })
         end
-    end
+    end,
 })
 
--- diagnostic virutal text
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
