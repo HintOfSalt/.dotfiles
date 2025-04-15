@@ -640,3 +640,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end
 })
+
+-- diagnostic virutal text
+vim.diagnostic.config({ virtual_lines = { current_line = true } })
