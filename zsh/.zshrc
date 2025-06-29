@@ -31,5 +31,10 @@ export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 ### ---- dev ----
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
+### ---- aliases ----
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
