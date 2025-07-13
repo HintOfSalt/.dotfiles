@@ -579,9 +579,11 @@ vim.lsp.enable('zls')
 ------------------
 -- autocommands --
 ------------------
+local augroup = vim.api.nvim_create_augroup("user.config", {})
+
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "Autocomplete and format on save",
-    group = vim.api.nvim_create_augroup("my.lsp", {}),
+    group = augroup,
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
@@ -600,6 +602,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
     end,
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+    desc = "Return to last edit position when opening files",
+    group = augroup,
+    callback = function()
+        local mark = vim.api.nvim_buf_get_mark(0, '""')
+        local lcount = vim.api.nvim_buf_line_count(0)
+        if mark[1] > 0 and mark[1] <= lcount then
+            pcall(vim.api.nvim_win_set_cursor, 0, mark)
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimResized", {
+    desc = "Auto-resize splits when window is resized",
+    group = augroup,
+    callback = function()
+        vim.cmd("tabdo wincmd =")
+    end
 })
 
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
