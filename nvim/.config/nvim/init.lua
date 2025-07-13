@@ -80,50 +80,40 @@ vim.keymap.set("i", "<C-space>", function() vim.lsp.completion.get() end)
 -------------
 -- OPTIONS --
 -------------
-vim.o.termguicolors = true
-vim.schedule(function()
-    vim.o.clipboard = "unnamedplus"
-end)
-
-vim.o.completeopt = "menu,menuone,popup,fuzzy,noselect"
-vim.o.winborder = "rounded"
-
+vim.o.number = true
+vim.o.relativenumber = true
 vim.o.cursorline = true
+vim.o.wrap = false
+vim.o.scrolloff = 10
+vim.o.sidescrolloff = 8
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
-
 vim.o.smartindent = true
-
-vim.o.wrap = false
-
-vim.o.number = true
-vim.o.relativenumber = true
-
-vim.o.signcolumn = "yes"
-vim.o.colorcolumn = "80"
-
-vim.o.numberwidth = 4
-vim.o.incsearch = true
-vim.o.hlsearch = true
-
-vim.o.splitbelow = true
-vim.o.splitright = true
-
-vim.o.hidden = true
-vim.o.scrolloff = 8
-
-vim.o.mouse = "nvi"
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.incsearch = true
+vim.o.hlsearch = true
+
+vim.o.termguicolors = true
+vim.o.signcolumn = "yes"
+vim.o.colorcolumn = "80"
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.completeopt = "menu,menuone,popup,fuzzy,noselect"
+vim.o.winborder = "rounded"
+
+vim.o.mouse = "nvi"
+vim.schedule(function()
+    vim.o.clipboard = "unnamedplus"
+end)
 
 vim.o.backup = false
 vim.o.swapfile = false
 vim.o.undofile = true
-
 vim.o.fileencoding = "utf-8"
 vim.o.fileformat = "unix"
 vim.o.fileformats = "unix,dos"
