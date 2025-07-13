@@ -42,7 +42,9 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move focus to the lower window"
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move focus to the upper window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move focus to the right window" })
 
--- Resize with arrows
+-- Splitting & Resizing
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Split window virtically" })
+vim.keymap.set("n", "<leader>sh", ":hsplit<CR>", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { desc = "Increase window horizontal size" })
 vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { desc = "Decrease window horizontal size" })
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Increase window vertical size" })
