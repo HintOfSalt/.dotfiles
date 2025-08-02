@@ -256,7 +256,6 @@ require("lazy").setup({
         {
             "nvim-telescope/telescope.nvim",
             event = "VimEnter",
-            branch = "0.1.x",
             dependencies = {
                 'nvim-lua/plenary.nvim',
                 {
@@ -331,6 +330,8 @@ require("lazy").setup({
         -- treesitter
         {
             "nvim-treesitter/nvim-treesitter",
+            branch = 'main',
+            lazy = 'false',
             build = ":TSUpdate",
             opts = {
                 ensure_installed = {
