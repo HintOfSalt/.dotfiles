@@ -613,9 +613,24 @@ vim.lsp.enable("ts_ls")
 local augroup = vim.api.nvim_create_augroup("user.config", {})
 
 vim.api.nvim_create_autocmd("LspAttach", {
-    desc = "Autocomplete and format on save",
+    desc = "Key maps, autocomplete, and format on save",
     group = augroup,
     callback = function(args)
+        local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = args.buf, desc = 'LSP: ' .. desc })
+        end
+
+        map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+        map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplentation')
+        map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+        map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Sybols')
+        map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
         if client:supports_method("textDocument/completion") then
