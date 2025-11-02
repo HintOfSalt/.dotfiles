@@ -30,6 +30,10 @@ export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 
 ### ---- dev ----
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+export CPLUS_INCLUDE_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+export COLIMA_VM="default"
+export COLIMA_VM_SOCKET="${HOME}/.colima/${COLIMA_VM}/docker.sock"
+export DOCKER_HOST="unix://${COLIMA_VM_SOCKET}"
 
 ### ---- aliases ----
 alias ll='ls -alF'
