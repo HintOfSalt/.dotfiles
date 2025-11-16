@@ -35,11 +35,16 @@ export CPLUS_INCLUDE_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 export COLIMA_VM="default"
 export COLIMA_VM_SOCKET="${HOME}/.colima/${COLIMA_VM}/docker.sock"
 export DOCKER_HOST="unix://${COLIMA_VM_SOCKET}"
+export FZF_DEFAULT_COMMAND='fd --type file --hidden --no-ignore'
 
 ### ---- aliases ----
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias cat='bat'
+alias curl='curlie'
+alias grep="rg"
+alias find="fd"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
