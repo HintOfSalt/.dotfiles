@@ -671,3 +671,8 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
+
+if vim.fn.executable("rg") == 1 then
+    vim.o.grepprg = "rg --vimgrep --no-hidden --no-heading"
+    vim.o.grepformat = "%f:%l:%c:%m"
+end
