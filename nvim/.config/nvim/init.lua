@@ -107,6 +107,8 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.completeopt = "menu,menuone,popup,fuzzy,noselect"
 vim.o.winborder = "rounded"
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.o.mouse = "nvi"
 vim.schedule(function()
