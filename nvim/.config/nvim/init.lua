@@ -47,7 +47,7 @@ vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" }
 
 -- Autocomplete --
 -- Activate completion
-vim.keymap.set("i", "<c-space>", ":lua vim.lsp.completion.get()")
+vim.keymap.set("i", "<c-space>", function() vim.lsp.completion.get() end)
 
 -- OPTIONS --
 vim.o.number = true
@@ -262,14 +262,18 @@ vim.lsp.enable({ "lua_ls", "gopls", "zls", "html", "ts_ls", "rust_analyzer" })
 
 -- AUTOCOMMANDS --
 vim.api.nvim_create_autocmd("LspAttach", {
-	desc = "Format on save",
-	group = vim.api.nvim_create_augroup("my-lsp-attach", { clear = true }),
+	desc = "Auto-completion and auto-format",
+	group = vim.api.nvim_create_augroup("my.lsp", { clear = true }),
 	callback = function(event)
 		local buf = event.buf
-		local client = vim.lsp.get_client_by_id(event.data.client_id)
+		local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 
-		if client and client:supports_method("textDocument/formatting") then
-			local group = vim.api.nvim_create_augroup("lsp-format-" .. buf, { clear = true })
+		if  client:supports_method('textDocument/completion') then
+			vim.lsp.completion.enable(true, client.id, buf, {autotrigger = true})
+		end
+
+		if client:supports_method("textDocument/formatting") then
+			local group = vim.api.nvim_create_augroup("my.lsp.format." .. buf, { clear = true })
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = group,
@@ -285,7 +289,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local augroup = vim.api.nvim_create_augroup("user-config", {})
+local augroup = vim.api.nvim_create_augroup("user.config", {})
 
 vim.api.nvim_create_autocmd("BufReadPost", {
 	desc = "Return to last edit position when opening files",
