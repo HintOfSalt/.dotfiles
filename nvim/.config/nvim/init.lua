@@ -76,6 +76,7 @@ vim.o.mouse = "nvi"
 vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
+vim.o.autoread = true
 vim.o.backup = false
 vim.o.swapfile = false
 vim.o.undofile = true
