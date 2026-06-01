@@ -7,28 +7,28 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move focus to the upper window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<c-h>", "<c-w>h", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<c-j>", "<c-w>j", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<c-k>", "<c-w>k", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<c-l>", "<c-w>l", { desc = "Move focus to the right window" })
 
 -- Splitting & Resizing
 vim.keymap.set("n", "<leader>sv", ":vsplit<cr>", { desc = "Split window virtically" })
 vim.keymap.set("n", "<leader>sh", ":hsplit<cr>", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<C-Up>", ":resize +2<cr>", { desc = "Increase window horizontal size" })
-vim.keymap.set("n", "<C-Down>", ":resize -2<cr>", { desc = "Decrease window horizontal size" })
-vim.keymap.set("n", "<C-Left>", ":vertical resize -2<cr>", { desc = "Increase window vertical size" })
-vim.keymap.set("n", "<C-Right>", ":vertical resize +2<cr>", { desc = "Decrease window vertical size" })
+vim.keymap.set("n", "<c-Up>", ":resize +2<cr>", { desc = "Increase window horizontal size" })
+vim.keymap.set("n", "<c-Down>", ":resize -2<cr>", { desc = "Decrease window horizontal size" })
+vim.keymap.set("n", "<c-Left>", ":vertical resize -2<cr>", { desc = "Increase window vertical size" })
+vim.keymap.set("n", "<c-Right>", ":vertical resize +2<cr>", { desc = "Decrease window vertical size" })
 
 -- Navigate buffers
-vim.keymap.set("n", "<S-l>", ":bnext<cr>", { desc = "Move to next buffer" })
-vim.keymap.set("n", "<S-h>", ":bprevious<cr>", { desc = "Move to previous buffer" })
+vim.keymap.set("n", "<c-l>", ":bnext<cr>", { desc = "Move to next buffer" })
+vim.keymap.set("n", "<c-h>", ":bprevious<cr>", { desc = "Move to previous buffer" })
 
 -- Delete buffer
 vim.keymap.set("n", "<leader>q", ":bdelete<cr>", { desc = "Close current buffer" })
 
 -- Clear highlights on search
-vim.keymap.set("n", "<ESC>", ":nohlsearch<cr>", { desc = "Clear highlights on search" })
+vim.keymap.set("n", "<esc>", ":nohlsearch<cr>", { desc = "Clear highlights on search" })
 
 -- Visual --
 -- Stay in indent mode
@@ -37,17 +37,17 @@ vim.keymap.set("v", ">", ">gv", { desc = "Add indent to selection" })
 
 -- Terminal --
 -- Better terminal navigation
-vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Move fouces to the left terminal" })
-vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Move fouces to the lower terminal" })
-vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Move fouces to the upper terminal" })
-vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Move fouces to the right terminal" })
+vim.keymap.set("t", "<c-h>", "<C-\\><C-N><C-w>h", { desc = "Move fouces to the left terminal" })
+vim.keymap.set("t", "<c-j>", "<C-\\><C-N><C-w>j", { desc = "Move fouces to the lower terminal" })
+vim.keymap.set("t", "<c-k>", "<C-\\><C-N><C-w>k", { desc = "Move fouces to the upper terminal" })
+vim.keymap.set("t", "<c-l>", "<C-\\><C-N><C-w>l", { desc = "Move fouces to the right terminal" })
 
 -- Exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Autocomplete --
 -- Activate completion
-vim.keymap.set("i", "<C-space>", ":lua vim.lsp.completion.get()<cr>")
+vim.keymap.set("i", "<c-space>", ":lua vim.lsp.completion.get()<cr>")
 
 -- OPTIONS --
 vim.o.number = true
@@ -183,11 +183,11 @@ end, { desc = "Quickfix List (Trouble)" })
 -- [Dap]
 local dap = require("dap")
 vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint, { desc = "DAP Toggle breakpoint" })
-vim.keymap.set("n", "<F7>", dap.continue, { desc = "DAP continue" })
-vim.keymap.set("n", "<F8>", dap.step_over, { desc = "DAP step over" })
-vim.keymap.set("n", "<F9>", dap.step_into, { desc = "DAP step into" })
-vim.keymap.set("n", "<F10>", dap.step_out, { desc = "DAP step out" })
-vim.keymap.set("n", "<Leader>w", require("dap-view").toggle, { desc = "DAP View Toggle" })
+vim.keymap.set("n", "<f7>", dap.continue, { desc = "DAP continue" })
+vim.keymap.set("n", "<f8>", dap.step_over, { desc = "DAP step over" })
+vim.keymap.set("n", "<f9>", dap.step_into, { desc = "DAP step into" })
+vim.keymap.set("n", "<f10>", dap.step_out, { desc = "DAP step out" })
+vim.keymap.set("n", "<leader>w", require("dap-view").toggle, { desc = "DAP View Toggle" })
 
 -- LSP navigation
 local pickers = require("mini.extra").pickers
