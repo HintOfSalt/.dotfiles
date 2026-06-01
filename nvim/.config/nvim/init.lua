@@ -15,10 +15,10 @@ vim.keymap.set("n", "<c-l>", "<c-w>l", { desc = "Move focus to the right window"
 -- Splitting & Resizing
 vim.keymap.set("n", "<leader>sv", ":vsplit<cr>", { desc = "Split window virtically" })
 vim.keymap.set("n", "<leader>sh", ":hsplit<cr>", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<c-Up>", ":resize +2<cr>", { desc = "Increase window horizontal size" })
-vim.keymap.set("n", "<c-Down>", ":resize -2<cr>", { desc = "Decrease window horizontal size" })
-vim.keymap.set("n", "<c-Left>", ":vertical resize -2<cr>", { desc = "Increase window vertical size" })
-vim.keymap.set("n", "<c-Right>", ":vertical resize +2<cr>", { desc = "Decrease window vertical size" })
+vim.keymap.set("n", "<c-up>", ":resize +2<cr>", { desc = "Increase window horizontal size" })
+vim.keymap.set("n", "<c-down>", ":resize -2<cr>", { desc = "Decrease window horizontal size" })
+vim.keymap.set("n", "<c-left>", ":vertical resize -2<cr>", { desc = "Increase window vertical size" })
+vim.keymap.set("n", "<c-right>", ":vertical resize +2<cr>", { desc = "Decrease window vertical size" })
 
 -- Navigate buffers
 vim.keymap.set("n", "<c-l>", ":bnext<cr>", { desc = "Move to next buffer" })
@@ -37,17 +37,17 @@ vim.keymap.set("v", ">", ">gv", { desc = "Add indent to selection" })
 
 -- Terminal --
 -- Better terminal navigation
-vim.keymap.set("t", "<c-h>", "<C-\\><C-N><C-w>h", { desc = "Move fouces to the left terminal" })
-vim.keymap.set("t", "<c-j>", "<C-\\><C-N><C-w>j", { desc = "Move fouces to the lower terminal" })
-vim.keymap.set("t", "<c-k>", "<C-\\><C-N><C-w>k", { desc = "Move fouces to the upper terminal" })
-vim.keymap.set("t", "<c-l>", "<C-\\><C-N><C-w>l", { desc = "Move fouces to the right terminal" })
+vim.keymap.set("t", "<c-h>", "<c-\\><c-N><c-w>h", { desc = "Move fouces to the left terminal" })
+vim.keymap.set("t", "<c-j>", "<c-\\><c-N><c-w>j", { desc = "Move fouces to the lower terminal" })
+vim.keymap.set("t", "<c-k>", "<c-\\><c-N><c-w>k", { desc = "Move fouces to the upper terminal" })
+vim.keymap.set("t", "<c-l>", "<c-\\><c-N><c-w>l", { desc = "Move fouces to the right terminal" })
 
 -- Exit terminal mode
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Exit terminal mode" })
 
 -- Autocomplete --
 -- Activate completion
-vim.keymap.set("i", "<c-space>", ":lua vim.lsp.completion.get()<cr>")
+vim.keymap.set("i", "<c-space>", ":lua vim.lsp.completion.get()")
 
 -- OPTIONS --
 vim.o.number = true
@@ -182,7 +182,7 @@ end, { desc = "Quickfix List (Trouble)" })
 
 -- [Dap]
 local dap = require("dap")
-vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint, { desc = "DAP Toggle breakpoint" })
+vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "DAP Toggle breakpoint" })
 vim.keymap.set("n", "<f7>", dap.continue, { desc = "DAP continue" })
 vim.keymap.set("n", "<f8>", dap.step_over, { desc = "DAP step over" })
 vim.keymap.set("n", "<f9>", dap.step_into, { desc = "DAP step into" })
