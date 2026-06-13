@@ -30,6 +30,10 @@ vim.keymap.set("n", "<leader>q", ":bdelete<cr>", { desc = "Close current buffer"
 -- Clear highlights on search
 vim.keymap.set("n", "<esc>", ":nohlsearch<cr>", { desc = "Clear highlights on search" })
 
+-- Center on search result
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result cursor centered" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result cursor centered" })
+
 -- Visual --
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", { desc = "Remove indent from selection" })
