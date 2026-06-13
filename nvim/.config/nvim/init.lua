@@ -99,6 +99,7 @@ vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
 	"https://github.com/tpope/vim-sleuth",
 	"https://github.com/nvim-mini/mini.nvim",
+	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/nvim-treesitter/nvim-treesitter",
@@ -131,6 +132,11 @@ require("mini.notify").setup({
 		end,
 	}
 })
+require("mini.completion").setup({
+	lsp_completion = {
+		auto_setup = true,
+	}
+})
 require("mini.ai").setup({
 	mappings = {
 		around_next = "aa",
@@ -138,6 +144,13 @@ require("mini.ai").setup({
 	},
 	n_lines = 500,
 })
+local MiniSnippets = require("mini.snippets")
+MiniSnippets.setup({
+	snippets = {
+		MiniSnippets.gen_loader.from_lang(),
+	},
+})
+MiniSnippets.start_lsp_server({ match = false })
 require("mason").setup()
 require("nvim-treesitter").setup({
 	autotag = {
@@ -210,6 +223,11 @@ vim.keymap.set("n", "gW", function()
 end, { desc = "Workspace Symbols" })
 
 -- LSPs --
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("mini.completion").get_lsp_capabilities())
+
+vim.lsp.config("*", { capabilities = capabilities })
+
 vim.lsp.config("lua_ls", {
 	on_init = function(client)
 		client.server_capabilities.documentFormattingProvider = false -- Disable formatting (formatting is done by stylua)
@@ -251,15 +269,11 @@ vim.lsp.enable({ "lua_ls", "gopls", "zls", "html", "ts_ls", "rust_analyzer" })
 
 -- AUTOCOMMANDS --
 vim.api.nvim_create_autocmd("LspAttach", {
-	desc = "Auto-completion and auto-format",
+	desc = "Auto-format",
 	group = vim.api.nvim_create_augroup("my.lsp", { clear = true }),
 	callback = function(event)
 		local buf = event.buf
 		local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
-
-		if  client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, buf, {autotrigger = true})
-		end
 
 		if client:supports_method("textDocument/formatting") then
 			local group = vim.api.nvim_create_augroup("my.lsp.format." .. buf, { clear = true })
