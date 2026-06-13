@@ -312,3 +312,11 @@ vim.api.nvim_create_autocmd("VimResized", {
 		vim.cmd("tabdo wincmd =")
 	end,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight wen yanking text",
+	group = augroup,
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
