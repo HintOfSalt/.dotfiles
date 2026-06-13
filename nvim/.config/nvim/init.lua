@@ -80,6 +80,7 @@ vim.o.autoread = true
 vim.o.backup = false
 vim.o.swapfile = false
 vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.o.fileencoding = "utf-8"
 vim.o.fileformat = "unix"
 vim.o.fileformats = "unix,dos"
