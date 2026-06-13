@@ -125,13 +125,6 @@ require("mini.pairs").setup()
 require("mini.trailspace").setup()
 require("mini.surround").setup()
 require("mini.cmdline").setup()
-require("mini.notify").setup({
-	content = {
-		format = function(notif)
-			return notif.msg
-		end,
-	}
-})
 require("mini.completion").setup({
 	lsp_completion = {
 		auto_setup = true,
