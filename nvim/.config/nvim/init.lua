@@ -104,7 +104,6 @@ vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 	"https://github.com/windwp/nvim-ts-autotag",
-	"https://github.com/folke/trouble.nvim",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/igorlfs/nvim-dap-view",
 	"https://github.com/leoluz/nvim-dap-go",
@@ -161,30 +160,6 @@ vim.keymap.set("n", "<leader>pq", function()
 end, { desc = "Pick Quickfix" })
 vim.keymap.set("n", "<leader>pr", pick.resume, { desc = "Pick Resume" })
 vim.keymap.set("n", "<leader><leader>", pick.buffers, { desc = "Pick existing buffers" })
-
--- [Trouble]
-local trouble = require("trouble")
-vim.keymap.set("n", "<leader>xx", function()
-	trouble.toggle({ source = "diagnostics" })
-end, { desc = "Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>xX", function()
-	trouble.toggle({ source = "diagnostics", filter = { buf = 0 } })
-end, { desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set("n", "<leader>cs", function()
-	trouble.toggle({ source = "symbols", focus = false })
-end, { desc = "Symbols (Trouble)" })
-vim.keymap.set("n", "<leader>cl", function()
-	trouble.toggle({ source = "lsp", focus = false, win = { position = "right" } })
-end, { desc = "LSP Definitions / references / ... (Trouble)" })
-vim.keymap.set("n", "<leader>xL", function()
-	trouble.toggle({ source = "loclist" })
-end, { desc = "Location List (Trouble)" })
-vim.keymap.set("n", "<leader>xQ", function()
-	trouble.toggle({ source = "qflist" })
-end, { desc = "Quickfix List (Trouble)" })
-vim.keymap.set("n", "<leader>xQ", function()
-	trouble.toggle("qflist")
-end, { desc = "Quickfix List (Trouble)" })
 
 -- [Dap]
 local dap = require("dap")
