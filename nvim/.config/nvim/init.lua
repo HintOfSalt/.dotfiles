@@ -111,6 +111,9 @@ vim.pack.add({
 	"https://github.com/julianolf/nvim-dap-lldb",
 })
 
+vim.cmd.packadd("nvim.difftool")
+vim.cmd.packadd("nvim.undotree")
+
 vim.cmd.colorscheme("tokyonight-night")
 
 require("mini.icons").setup()
@@ -152,6 +155,108 @@ require("nvim-treesitter").setup({
 })
 
 -- Plugins keybindings --
+-- [Nvim.Undotree]
+vim.keymap.set("n", "<leader>ut", function()
+	require("undotree").open()
+end, { noremap = true, silent = true, desc = "Toggle undotree" })
+
+-- [Nvim.Difftool]
+_G.__nvim_difftool_temps = _G.__nvim_difftool_temps or {}
+_G.__nvim_difftool_bufs = _G.__nvim_difftool_bufs or {}
+
+local function difftool_is_open()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.tbl_contains(_G.__nvim_difftool_bufs, buf) then return true end
+	end
+	return false
+end
+
+local function cleanup_difftool()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.tbl_contains(_G.__nvim_difftool_bufs, buf) then
+			pcall(vim.api.nvim_win_close, win, true)
+		end
+	end
+
+	for _, buf in ipairs(_G.__nvim_difftool_bufs) do
+		if vim.api.nvim_buf_is_valid(buf) then
+			pcall(vim.api.nvim_buf_delete, buf, {force = true})
+		end
+	end
+	_G.__nvim_difftool_bufs = {}
+
+	for _, f in ipairs(_G.__nvim_difftool_temps) do pcall(os.remove, f) end
+	_G.__nvim_difftool_temps = {}
+end
+
+local function write_blob_to_temp(ref, relpath, git_root)
+	local cmd = {"git", "-C", git_root, "show", ref .. ":" .. relpath }
+	local out = vim.fn.systemlist(cmd)
+	if vim.v.shell_error ~= 0 then return nil end
+	local tmp = vim.fn.tempname()
+	vim.fn.writefile(out, tmp)
+	table.insert(_G.__nvim_difftool_temps, tmp)
+	return tmp
+end
+
+vim.keymap.set('n', '<leader>dt', function()
+	if difftool_is_open() then cleanup_difftool(); return end
+
+	local bufname = vim.api.nvim_buf_get_name(0)
+	if bufname == "" then
+		vim.notify("Buffer has no file (save it first)", vim.log.levels.WARN)
+		return
+	end
+
+	-- repo root
+	local git_root = vim.fn.systemlist({"git", "rev-parse", "--show-toplevel"})[1]
+	if vim.v.shell_error ~= 0 or git_root == nil or git_root == "" then
+		vim.notify("Not in git respository", vim.log.levels.WARN)
+		return
+	end
+
+	-- compute path relative to repo root
+	local abs_path = vim.fn.fnamemodify(bufname, ":p")
+	local pattern = "^" .. vim.pesc(git_root) .. "/?"
+	local relpath = abs_path:gsub(pattern, "")
+
+	-- ensure tracked
+	vim.fn.system({"git", "ls-files", "--error-unmatch", "--", relpath })
+	if vim.v.shell_error ~= 0 then
+		vim.notify("File not tracked in git", vim.log.levels.WARN)
+		return
+	end
+
+
+	local left = write_blob_to_temp("HEAD", relpath, git_root)
+	if not left then
+		vim.notify("Could not read blob from git", vim.log.levels.ERROR)
+		return
+	end
+
+	local right = bufname
+	if vim.bo.modified then
+		local tmp_right = vim.fn.tempname()
+		vim.api.nvim_buf_call(0, function()
+			vim.cmd("write! " .. vim.fn.fnameescape(tmp_right))
+		end)
+		table.insert(_G.__nvim_difftool_temps, tmp_right)
+		right = tmp_right
+	end
+
+	local before_bufs = {}
+	for _, b in ipairs(vim.api.nvim_list_bufs()) do before_bufs[b] = true end
+
+	require("difftool").open(left, right)
+
+	_G.__nvim_difftool_bufs = {}
+	for _, b in ipairs(vim.api.nvim_list_bufs()) do
+		if not before_bufs[b] then table.insert(_G.__nvim_difftool_bufs, b) end
+	end
+end, { noremap=true, silent=true, desc='Diff current file vs git' })
+
 -- [Mini.Files]
 local minifiles_toggle = function(...)
 	if not MiniFiles.close() then
